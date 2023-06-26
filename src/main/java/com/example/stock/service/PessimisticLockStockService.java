@@ -3,18 +3,20 @@ package com.example.stock.service;
 import com.example.stock.domain.Stock;
 import com.example.stock.repository.StockRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class StockService {
+public class PessimisticLockStockService {
 
     private StockRepository repository;
 
-    public StockService(StockRepository repository) {
+    public PessimisticLockStockService(StockRepository repository) {
         this.repository = repository;
     }
 
-    public synchronized void decrease(Long id, Long quantity) {
-        Stock stock = repository.findById(id).orElseThrow();
+    @Transactional
+    public void decrease(Long id, Long quantity) {
+        Stock stock = repository.findOneWithPessimisticLock(id);
 
         stock.decrease(quantity);
 

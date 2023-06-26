@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class StockServiceTest {
 
     @Autowired
-    private StockService service;
+    private PessimisticLockStockService service;
 
     @Autowired
     private StockRepository repository;

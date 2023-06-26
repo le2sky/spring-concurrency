@@ -19,6 +19,7 @@ public class TransactionStockService {
          * @Transactional을 제거하면 개선되긴 한다.
          * : synchronized를 decrease에 선언해도 트랜잭션 commit 이전에
          * 갱신 이전 값을 조회하면 동시성 문제가 발생함
+         * but, 여러 프로세스에서 요청하면 다시 동시성 문제가 발생할 수 있음
          */
         endTransaction();
     }
